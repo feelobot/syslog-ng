@@ -36,6 +36,15 @@ typedef struct _NVHandleDesc NVHandleDesc;
 typedef gboolean (*NVTableForeachFunc)(NVHandle handle, const gchar *name, const gchar *value, gssize value_len, gpointer user_data);
 typedef gboolean (*NVTableForeachEntryFunc)(NVHandle handle, NVEntry *entry, NVIndexEntry *index_entry, gpointer user_data);
 
+/* NVIndexEntry
+ *   this represents an entry in the handle based lookup index, embedded in an NVTable.
+ *
+ * NOTE:
+ *   The deserialization code (at least version 26) assumes that this can be
+ *   represented by a pair of guint32 instances.  It is reading the entire
+ *   array back as such.  Should you need to change the types here, please
+ *   ensure that you also update the nvtable deserialization code.
+ */
 struct _NVIndexEntry
 {
   NVHandle handle;
